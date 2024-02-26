@@ -1,3 +1,64 @@
-p {
-  background-color: red;
+@font-face {
+  font-family: "Collingar Regular";
+  src: url("../assets/fonts/Collingar Regular.otf");
+}
+
+#main-side-image {
+  height: 100lvh;
+  width: 100%;
+  object-fit: cover;
+  /* mask-image: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0)); */
+
+  animation: slide-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+
+  grid-area: side-image;
+}
+
+#main-name {
+  grid-area: name;
+  color: #DDD;
+  font-family: "Bahnschrift Light", FreeMono, monospace;
+  font-size: 18px;
+  padding: 4lvw 4lvw 0px 4lvw;
+}
+
+#main-title {
+  grid-area: title;
+  color: #feffaf;
+  padding: 0 4lvw;
+  font-family: "Collingar Regular";
+  font-size: 80px;
+}
+
+#main-collection {
+  grid-area: collection;
+  color: #feffaf;
+}
+
+#main-container {
+  display: grid;
+
+  grid-template:
+    "side-image name"
+    "side-image title"
+    "side-image collection" / 1fr 3fr;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #333;
+  color: white;
+}
+
+@keyframes slide-right {
+  0% {
+    opacity: 0;
+    transform: translateX(-30lvw);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: translateX(0);
+  }
 }
