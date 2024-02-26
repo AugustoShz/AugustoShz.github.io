@@ -1,25 +1,34 @@
+:root {
+  --slider-height: 200px;
+  --background-color: #333
+}
+
 @font-face {
   font-family: "Collingar Regular";
   src: url("../assets/fonts/Collingar Regular.otf");
 }
 
 #main-side-image {
-  height: 100lvh;
-  width: 100%;
-  object-fit: cover;
-  /* mask-image: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0)); */
-
-  animation: slide-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-
   grid-area: side-image;
+  object-fit: cover;
+  width: 100lvw;
+  height: 30lvh;
+
+  mask-image: linear-gradient(black, transparent);
+
+  animation: slide-up 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 #main-name {
   grid-area: name;
   color: #DDD;
   font-family: "Bahnschrift Light", FreeMono, monospace;
-  font-size: 18px;
   padding: 4lvw 4lvw 0px 4lvw;
+  animation: slide-up 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation-delay: 1.5s;
+
+  font-size: 68px;
+  text-align: center;
 }
 
 #main-title {
@@ -28,27 +37,105 @@
   padding: 0 4lvw;
   font-family: "Collingar Regular";
   font-size: 80px;
-}
-
-#main-collection {
-  grid-area: collection;
-  color: #feffaf;
+  text-align: center;
+  animation: slide-up 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation-delay: 2s;
 }
 
 #main-container {
   display: grid;
 
+  height: 100%;
   grid-template:
-    "side-image name"
-    "side-image title"
-    "side-image collection" / 1fr 3fr;
+    "side-image ."
+    "name ."
+    "title ."
+    "collection ." / 1fr 1fr;
 }
 
 body {
   margin: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: var(--background-color);
   color: white;
+  width: 100lvw;
+  height: 100lvh;
+}
+
+#main-collection {
+  grid-area: collection;
+  width: calc(100% - 8lvw);
+  overflow: hidden;
+  align-self: center;
+  justify-self: center;
+  animation: slide-up 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation-delay: 2.5s;
+  color: #feffaf;
+
+  font-size: 24px;
+
+  padding-bottom: 8lvh;
+}
+
+
+#collection-slider {
+  position: relative;
+  height: var(--slider-height);
+  white-space: nowrap;
+}
+
+#collection-slider:before,
+#collection-slider:after {
+  top: 0;
+  position: absolute;
+  width: 80px;
+  height: 100%;
+  content: "";
+  z-index: 1;
+}
+
+#collection-slider:before {
+  left: 0;
+  background: linear-gradient(to right, var(--background-color), rgb(0, 0, 0, 0));
+}
+
+#collection-slider:after {
+  right: 0;
+  background: linear-gradient(to left, var(--background-color), rgb(0, 0, 0, 0));
+}
+
+#collection-slider:hover #collection-slider-images {
+  animation-play-state: paused;
+}
+
+#collection-slider-images {
+  display: inline-block;
+  animation: scroll 20s linear infinite;
+}
+
+#collection-slider-images>img {
+  margin: 0 20px;
+  height: var(--slider-height);
+}
+
+#more {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  color: #feffaf;
+
+  font-size: 24px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translatex(-100%)
+  }
 }
 
 @keyframes slide-right {
@@ -61,4 +148,69 @@ body {
     opacity: 100%;
     transform: translateX(0);
   }
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width:320px) {
+}
+
+@media (min-width:480px) {
+  /* smartphones, Android phones, landscape iPhone */
+  
+}
+
+@media (min-width:600px) {
+  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+}
+
+@media (min-width:801px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+}
+
+@media (min-width:1024px) {
+  /* big landscape tablets, laptops, and desktops */
+  #main-container {
+    display: grid;
+
+    grid-template:
+      "side-image name"
+      "side-image title"
+      "side-image collection" / 1fr 3fr;
+  }
+
+
+  #main-side-image {
+    height: 100lvh;
+    width: 100%;
+    mask-image: unset;
+
+    animation: slide-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+
+  #main-name {
+    font-size: 18px !important;
+    text-align: left;
+  }
+
+  #main-title {
+    text-align: left;
+    align-self: center;
+  }
+
+}
+
+@media (min-width:1281px) {
+
+  /* hi-res laptops and desktops */
 }
